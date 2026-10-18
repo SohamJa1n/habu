@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   extractCommentText,
   extractTagsFromComment,
+  fitSummaryLength,
   formatCommentWithTags,
   parseTaggedComment,
   sanitizeBookmarkTags,
@@ -31,5 +32,11 @@ describe("bookmark-comment", () => {
     expect(formatCommentWithTags("A concise note", ["React", "Next.js"])).toBe(
       "[React][Next.js]A concise note",
     );
+  });
+
+  it("cuts over-long summaries at the last sentence end", () => {
+    expect(fitSummaryLength(" 短い要約。 ")).toBe("短い要約。");
+    expect(fitSummaryLength(`${"あ".repeat(60)}。${"い".repeat(60)}`)).toBe(`${"あ".repeat(60)}。`);
+    expect(fitSummaryLength("あ".repeat(120))).toBe("あ".repeat(100));
   });
 });

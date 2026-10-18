@@ -48,3 +48,15 @@ export function formatCommentWithTags(commentText: string, tags: string[]): stri
   const normalizedComment = commentText.trim();
   return `${tagPart}${normalizedComment}`;
 }
+
+/** Hatena truncates comment text beyond 100 characters */
+export const MAX_SUMMARY_LENGTH = 100;
+
+/** Cut an over-long summary at the last sentence end instead of mid-word. */
+export function fitSummaryLength(summary: string, max = MAX_SUMMARY_LENGTH): string {
+  const trimmed = summary.trim();
+  if (trimmed.length <= max) return trimmed;
+  const head = trimmed.slice(0, max);
+  const end = Math.max(head.lastIndexOf("。"), head.lastIndexOf("！"), head.lastIndexOf("？"));
+  return end > 0 ? head.slice(0, end + 1) : head;
+}
