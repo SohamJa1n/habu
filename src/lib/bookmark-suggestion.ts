@@ -101,7 +101,7 @@ async function judgeSummary(
   const summaryLength = summary.length;
 
   const result = await generateObjectWithRetry({
-    model: openai("gpt-5.4-nano"),
+    model: openai("gpt-6-luna"),
     schema: JudgeResultSchema,
     system: `<role>
 You are a quality evaluator for Hatena Bookmark summaries.
@@ -188,7 +188,7 @@ async function judgeTags(
   const allTagsValid = invalidTags.length === 0;
 
   const result = await generateObjectWithRetry({
-    model: openai("gpt-5.4-nano"),
+    model: openai("gpt-6-luna"),
     schema: JudgeResultSchema,
     system: `<role>
 You are a quality evaluator for Hatena Bookmark tags.
@@ -421,7 +421,7 @@ async function fetchWebContext(inputData: BookmarkSuggestionInput): Promise<WebS
 
     // Use OpenAI web search to get additional context about the URL
     const { text } = await generateText({
-      model: openai("gpt-5.4-nano"),
+      model: openai("gpt-6-luna"),
       prompt: `Briefly describe what this URL is about and provide any relevant context (author, publication date, key topics). Keep it under 200 words. URL: ${url}`,
       tools: {
         web_search: openai.tools.webSearch({}),
@@ -778,7 +778,7 @@ ${markdown}
         : basePrompt;
 
       const result = await generateObjectWithRetry({
-        model: openai("gpt-5.4-nano"),
+        model: openai("gpt-6-luna"),
         schema: SummaryGenerationSchema,
         system: baseSystemPrompt,
         prompt,
@@ -947,7 +947,7 @@ ${markdown.slice(0, 10000)}
 
           const prompt = `${promptBase}\n\n<candidate>\nrunner=${runnerId} candidate=${candidateId}\n</candidate>`;
           const result = await generateObjectWithRetry({
-            model: openai("gpt-5.4-nano"),
+            model: openai("gpt-6-luna"),
             schema: TagsOutputSchema,
             system: baseSystemPrompt,
             prompt,

@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const tagsForPrompt = tagInventory.slice(0, MAX_TAGS_IN_PROMPT);
     const openai = createOpenAI({ apiKey: env.OPENAI_API_KEY });
     const result = await generateObject({
-      model: openai("gpt-5.4-nano"),
+      model: openai("gpt-6-luna"),
       schema: CandidateSchema,
       system: `You are a tag taxonomy editor for Hatena Bookmark.
 

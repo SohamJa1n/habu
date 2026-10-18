@@ -223,9 +223,9 @@ export async function POST(request: NextRequest) {
           return { provider: "Habu", api: "merge" };
 
         if (stepId === "generate-summary")
-          return { provider: "OpenAI", model: "gpt-5.4-nano", api: "generate + judge" };
+          return { provider: "OpenAI", model: "gpt-6-luna", api: "generate + judge" };
         if (stepId === "generate-tags")
-          return { provider: "OpenAI", model: "gpt-5.4-nano", api: "generate + judge" };
+          return { provider: "OpenAI", model: "gpt-6-luna", api: "generate + judge" };
 
         if (stepId === "moderate-user-context" && eventType === "step-result") {
           const output = payloadObj?.output as Record<string, unknown> | undefined;
@@ -241,7 +241,7 @@ export async function POST(request: NextRequest) {
             if (src === "grok")
               return { provider: "xAI", model: grokModel(), api: "chat/completions" };
             if (src === "openai-web_search")
-              return { provider: "OpenAI", model: "gpt-5.4-nano", api: "web_search" };
+              return { provider: "OpenAI", model: "gpt-6-luna", api: "web_search" };
             return undefined;
           }
           // If we haven't finished yet, avoid showing both possibilities.
